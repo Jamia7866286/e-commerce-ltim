@@ -1,0 +1,40 @@
+
+.card{
+    padding-top: 16px;
+    border: 0;
+    box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.07);
+    transition: 0.4s ease-in-out;
+
+    &:hover{
+        box-shadow: 0px 0px 26px 0px rgba(0,0,0,0.1);
+
+        img{
+            transform: scale(1.1);
+        }
+    }
+
+    img{
+        object-fit: contain;
+        height: 160px;
+        transition: 0.4s ease-in-out;
+    }
+
+    .titleHeading{
+        max-width: 300px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    .descriptionText{
+        font-size: 14px;
+    }
+
+    .price{
+        color: #4f4f4fbf;
+        font-weight: 700;
+    }
+}
+
+.available{
+    color: #4f4f4fbf;
+}
