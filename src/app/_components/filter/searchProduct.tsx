@@ -5,7 +5,7 @@ import {
   selectorAllProductList,
   updateFilterKeys,
 } from "@/redux/slice/allProductSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
 
 export interface OtherProps {
   title?: string;
@@ -16,9 +16,9 @@ export interface OtherProps {
 }
 
 const SearchProduct = ({ onMySubmit }) => {
-  const { btnIsDisbaled, filterKeys } = useAppSelector(selectorAllProductList);
+  const { btnIsDisbaled, filterKeys } = useSelector(selectorAllProductList);
 
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   return (
     <div className={`mt-3 mb-5 row`}>

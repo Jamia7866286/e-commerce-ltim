@@ -9,16 +9,16 @@ import {
 } from "@/redux/slice/allProductSlice";
 import Alert from "react-bootstrap/Alert";
 import styles from "./productListing.module.scss";
-import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
 
 export const ProductListingComponent = () => {
   // state variables
   const [alertShow, setAlertShow] = useState<boolean>(false);
 
   // hooks
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const { products, loading, error, filteredProductsData, filterKeys } =
-  useAppSelector(selectorAllProductList);
+  useSelector(selectorAllProductList);
 
   // object destructure
   const { title, category, minPrice, maxPrice, minRating } = filterKeys;

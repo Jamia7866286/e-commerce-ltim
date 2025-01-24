@@ -8,7 +8,7 @@ const ListingCard = (product) => {
   const { title, price, rating, image, description, id } = product || {};
 
   return (
-    <div className="col-md-4 mb-4">
+    <div className="col-md-4 mb-4" data-testid="product-card">
       <div className={`card ${styles.card}`}>
         <img src={image} alt="product image" />
         <div className="card-body">

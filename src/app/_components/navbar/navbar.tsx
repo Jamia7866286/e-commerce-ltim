@@ -9,12 +9,12 @@ import Logo from "@/../public/images/logo.png";
 import styles from "./navbar.module.scss";
 import { useEffect } from "react";
 import { fetchAllProductList } from "@/redux/slice/allProductSlice";
-import { useAppDispatch } from "@/redux/store";
+import { useDispatch } from "react-redux";
 
 const NavbarComponent = () => {
 
   // hooks
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   // Use Effect
   useEffect(()=>{
