@@ -45,6 +45,7 @@ const SearchProduct = ({ onMySubmit }) => {
         </label>
         <select
           id="category"
+          data-testid="category"
           className="form-select mb-2 mb-md-0 d-block"
           onChange={(e) => {
             // dispatch(updateBtnDisabled(e.target.name))
