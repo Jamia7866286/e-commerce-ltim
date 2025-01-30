@@ -27,7 +27,7 @@ describe("********* Load NavbarComponent & Fetch API Call *********", () => {
     expect(textElement).toBeInTheDocument();
   });
 
-  it("should load all product list items before filter", async () => {
+  it("should load all product list items, before filter", async () => {
     render(
       <Provider store={store}>
         <ProductListingComponent />
@@ -37,7 +37,7 @@ describe("********* Load NavbarComponent & Fetch API Call *********", () => {
     expect(productCard.length).toBe(20);
   });
 
-  it("should load product list items after enter the product title filter into the search box", async () => {
+  it("should load product list items, after enter the product title filter into the search box", async () => {
     render(
       <Provider store={store}>
         <ProductListingComponent />
@@ -57,7 +57,7 @@ describe("********* Load NavbarComponent & Fetch API Call *********", () => {
     expect(productCardsAfterSearch.length).toBe(1);
   });
 
-  it("should load product list after clear the product title filter from search box", async () => {
+  it("should load product listitems, after clear the product title filter from search box", async () => {
     render(
       <Provider store={store}>
         <ProductListingComponent />
@@ -75,7 +75,7 @@ describe("********* Load NavbarComponent & Fetch API Call *********", () => {
     expect(productCardsAfterClearSearch.length).toBe(20);
   });
 
-  it("should load product list items after choose filter category", async () => {
+  it("should load product list items, after choose filter category", async () => {
     render(
       <Provider store={store}>
         <ProductListingComponent />
@@ -85,16 +85,62 @@ describe("********* Load NavbarComponent & Fetch API Call *********", () => {
     const selectElement = screen.getByTestId("category");
     await userEvent.selectOptions(selectElement, "jewelery");
 
-    const selectedOption = screen.getByRole("option", { name: "Jewelery" });
+    const selectedOption = screen.getByRole("option", {
+      name: "Jewelery",
+    }) as HTMLOptionElement;
     expect(selectedOption.selected).toBe(true);
-
-    const beforeFilterCategory = await screen.findAllByTestId("product-card");
-    expect(beforeFilterCategory).toHaveLength(20);
 
     const filterButtonElement = screen.getByRole("button", { name: "Filter" });
     await userEvent.click(filterButtonElement);
 
     const afterFilterCategory = await screen.findAllByTestId("product-card");
     expect(afterFilterCategory).toHaveLength(4);
+  });
+
+  it("should load product list items, after clear choose category filter", async () => {
+    render(
+      <Provider store={store}>
+        <ProductListingComponent />
+      </Provider>
+    );
+
+    const selectElement = screen.getByTestId("category");
+    await userEvent.selectOptions(selectElement, "");
+
+    const selectedOption = screen.getByRole("option", {
+      name: "All",
+    }) as HTMLOptionElement;
+    expect(selectedOption.selected).toBe(true);
+
+    const filterButtonElement = screen.getByRole("button", { name: "Filter" });
+    await userEvent.click(filterButtonElement);
+    
+    const clearFilterCategory = await screen.findAllByTestId("product-card");
+    expect(clearFilterCategory).toHaveLength(20);
+  });
+
+
+  // input box and coose category filter apply
+  it("should load product list items, after enter the product title into search box and choose category filter", async() => {
+    render(
+      <Provider store={store}>
+        <ProductListingComponent />
+      </Provider>
+    );
+
+    const inputSearchFilter = screen.getByPlaceholderText('Search...');
+    await userEvent.type(inputSearchFilter, "Mens Cotton Jacket");
+
+    const selectElement = screen.getByTestId("category");
+    await userEvent.selectOptions(selectElement, 'jewelery');
+
+    const selectOptionElement = screen.getByRole('option', {name: 'Jewelery'}) as HTMLOptionElement;
+    expect(selectOptionElement.selected).toBe(true);
+
+    const filterButtonElement = screen.getByRole('button', {name: 'Filter'});
+    await userEvent.click(filterButtonElement);
+
+    const productListFilterItem = await screen.findAllByTestId('product-card');
+    expect(productListFilterItem.length).toBe(5);
   });
 });
