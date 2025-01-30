@@ -3,12 +3,12 @@ import styles from "./searchProduct.module.scss";
 import {
   clearFilter,
   selectorAllProductList,
+  updateBtnDisabled,
   updateFilterKeys,
 } from "@/redux/slice/allProductSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 export interface OtherProps {
-  title?: string;
   category?: string;
   minPrice?: string;
   maxPrice?: string;
@@ -16,30 +16,13 @@ export interface OtherProps {
 }
 
 const SearchProduct = ({ onMySubmit }) => {
-  const { btnIsDisbaled, filterKeys } = useSelector(selectorAllProductList);
+  const { isSubmitBtnIsDisbaled, filterKeys } = useSelector(selectorAllProductList);
 
   const dispatch = useDispatch();
 
   return (
     <div className={`mt-3 mb-5 row`}>
-      <div className="col-12 col-md-2">
-        <label htmlFor="title" className="small">
-          Search Product
-        </label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          className="form-control mb-2 mb-md-0 d-block"
-          placeholder="Search..."
-          onChange={(e) => {
-            // dispatch(updateBtnDisabled(e.target.name))
-            dispatch(updateFilterKeys({ title: e.target.value.toLowerCase() }));
-          }}
-          value={filterKeys?.title}
-        />
-      </div>
-      <div className="col-12 col-md-2">
+      <div className="col-12 col-md-3">
         <label htmlFor="category" className="small">
           Category
         </label>
@@ -48,7 +31,7 @@ const SearchProduct = ({ onMySubmit }) => {
           data-testid="category"
           className="form-select mb-2 mb-md-0 d-block"
           onChange={(e) => {
-            // dispatch(updateBtnDisabled(e.target.name))
+            //  dispatch(updateBtnDisabled(e.target.name))
             dispatch(
               updateFilterKeys({ category: e.target.value.toLowerCase() })
             );
@@ -101,7 +84,7 @@ const SearchProduct = ({ onMySubmit }) => {
           value={filterKeys?.maxPrice}
         />
       </div>
-      <div className="col-12 col-md-2">
+      <div className="col-12 col-md-3">
         <label htmlFor="minRating" className="small">
           Min Rating
         </label>
@@ -131,7 +114,7 @@ const SearchProduct = ({ onMySubmit }) => {
           <button
             type="submit"
             className="w-50 btn btn-primary"
-            disabled={btnIsDisbaled}
+            disabled={isSubmitBtnIsDisbaled}
             onClick={onMySubmit}
           >
             Filter
@@ -142,7 +125,7 @@ const SearchProduct = ({ onMySubmit }) => {
               dispatch(clearFilter());
             }}
             className="w-50 btn btn-danger"
-            disabled={btnIsDisbaled}
+            // disabled={btnIsDisbaled}
           >
             Clear
           </button>

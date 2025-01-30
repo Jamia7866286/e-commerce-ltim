@@ -18,10 +18,10 @@ export const ProductListingComponent = () => {
   // hooks
   const dispatch = useDispatch();
   const { products, loading, error, filteredProductsData, filterKeys } =
-  useSelector(selectorAllProductList);
+    useSelector(selectorAllProductList);
 
   // object destructure
-  const { title, category, minPrice, maxPrice, minRating } = filterKeys;
+  const { category, minPrice, maxPrice, minRating } = filterKeys;
 
   // functions
   const priceRange = (filterItem: any) => {
@@ -38,24 +38,19 @@ export const ProductListingComponent = () => {
     e.preventDefault();
     // console.log("filterKeys :", filterKeys);
 
-    if (title || category || minPrice || maxPrice || minRating !== "0") {
+    if (category || minPrice || maxPrice || minRating !== "0") {
       const filterResult = products.filter((filterItem) => {
-        const titleText = filterItem.title.toLowerCase();
         const categoryText = filterItem.category.toLowerCase();
         const ratingText = filterItem.rating.rate.toString();
 
         return (
-          (title && titleText.includes(title.toLowerCase())) ||
           categoryText === category ||
           priceRange(filterItem) ||
           (minRating !== "0" && ratingText >= minRating)
         );
       });
-
-      // console.log("filterResult", filterResult);
       dispatch(filteredProducts(filterResult));
     } else {
-      // console.log("All data else part :", products);
       dispatch(filteredProducts(products));
     }
   };
@@ -81,15 +76,16 @@ export const ProductListingComponent = () => {
         {loading ? (
           <div>Loading...</div>
         ) : error ? (
-          
-          alertShow && <Alert
-            variant="danger"
-            className={styles.topAlert}
-            onClose={() => setAlertShow(false)}
-            dismissible
-          >
-            {error}
-          </Alert>
+          alertShow && (
+            <Alert
+              variant="danger"
+              className={styles.topAlert}
+              onClose={() => setAlertShow(false)}
+              dismissible
+            >
+              {error}
+            </Alert>
+          )
         ) : filteredProductsData?.length > 0 ? (
           filteredProductsData?.map((product) => (
             <ListingCard key={product.id} {...product} />

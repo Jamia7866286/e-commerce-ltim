@@ -23,9 +23,9 @@ const productSlice = createSlice({
     filteredProductsData: [],
     loading: false,
     error: '',
-    btnIsDisbaled: false,
+    isSubmitBtnIsDisbaled: false,
+    searchProduct: '',
     filterKeys: {
-      title: "",
       category: "",
       minPrice: "",
       maxPrice: "",
@@ -40,7 +40,6 @@ const productSlice = createSlice({
     clearFilter: (state) => {
       state.filteredProductsData = state.products;
       state.filterKeys = {
-        title: "",
         category: "",
         minPrice: "",
         maxPrice: "",
@@ -48,15 +47,19 @@ const productSlice = createSlice({
       };
     },
     updateBtnDisabled: (state, action) => {
+      // console.log("state.filterKeys", {...state.filterKeys});
       if (state.filterKeys[action.payload] !== "") {
-        state.btnIsDisbaled = false;
+        state.isSubmitBtnIsDisbaled = false;
       } else {
-        state.btnIsDisbaled = true;
+        state.isSubmitBtnIsDisbaled = true;
       }
-      // console.log("state.filterKeys", current(state.filterKeys));
+      // current(state.filterKeys[action.payload]);
     },
     updateFilterKeys: (state, action) => {
       state.filterKeys = { ...state.filterKeys, ...action.payload };
+    },
+    searcProductItem: (state, action)=>{
+      state.searchProduct = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -81,6 +84,7 @@ export const {
   clearFilter,
   updateBtnDisabled,
   updateFilterKeys,
+  searcProductItem,
 } = productSlice.actions;
 
 export const selectorAllProductList = (arg) => arg.productSliceReducer;

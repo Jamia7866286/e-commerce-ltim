@@ -8,18 +8,31 @@ import Navbar from "react-bootstrap/Navbar";
 import Logo from "@/../public/images/logo.png";
 import styles from "./navbar.module.scss";
 import { useEffect } from "react";
-import { fetchAllProductList } from "@/redux/slice/allProductSlice";
-import { useDispatch } from "react-redux";
+import {
+  fetchAllProductList,
+  filteredProducts,
+  searcProductItem,
+  selectorAllProductList,
+} from "@/redux/slice/allProductSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { FiSearch } from "react-icons/fi";
 
 const NavbarComponent = () => {
-
   // hooks
   const dispatch = useDispatch();
+  const { products, searchProduct } = useSelector(selectorAllProductList);
+
+  const filterSerachData = () => {
+    const searchItems = products.filter(({ title }) => {
+      return title.toLowerCase().includes(searchProduct.toLowerCase());
+    });
+    dispatch(filteredProducts(searchItems));
+  };
 
   // Use Effect
-  useEffect(()=>{
-    dispatch(fetchAllProductList())
-  },[dispatch])
+  useEffect(() => {
+    dispatch(fetchAllProductList());
+  }, [dispatch]);
 
   return (
     <Navbar
@@ -38,12 +51,26 @@ const NavbarComponent = () => {
         />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto"></Nav>
-          <Nav>
-            <Link href="/" className='pe-4'>
-              Home
-            </Link>
-            <Link href="/about" className='pe-4'>About</Link>
-            <Link href="/cart">Cart (0)</Link>
+          <Nav className={styles.rightNavbarBox}>
+            <div className={styles.childTabs}>
+              <Link href="/">Home</Link>
+              <Link href="/about">About</Link>
+              <Link href="/cart">Cart (0)</Link>
+            </div>
+            <div className={styles.searchBox}>
+              <FiSearch onClick={filterSerachData} />
+              <input
+                type="text"
+                id="title"
+                name="title"
+                className="form-control mb-2 mb-md-0 d-block"
+                placeholder="Search..."
+                onChange={(e) => {
+                  dispatch(searcProductItem(e.target.value));
+                  filterSerachData();
+                }}
+              />
+            </div>
           </Nav>
         </Navbar.Collapse>
       </Container>

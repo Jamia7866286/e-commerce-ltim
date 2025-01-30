@@ -1,7 +1,49 @@
-.navbar_box{
-    background-color: #fff;
+.navbar_box {
+  background-color: #fff;
 
-    .home_tab{
-        // padding-right: 20px;
+  .home_tab {
+    // padding-right: 20px;
+  }
+}
+
+.rightNavbarBox {
+  align-items: center;
+  width: 62%;
+  justify-content: space-between;
+
+  .childTabs {
+    gap: 24px;
+    display: flex;
+
+    a{
+        font-size: 14px;
+        font-weight: 500;
+        color: #212529 !important;
     }
+  }
+
+  input {
+    padding-right: 30px;
+    background-color: #f3f3f3;
+    border-radius: 40px;
+    font-size: 14px;
+
+    &:focus {
+      background-color: #f3f3f3;
+      outline: none;
+      box-shadow: none;
+      border: 0;
+    }
+  }
+
+  .searchBox {
+    position: relative;
+
+    svg {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      cursor: pointer;
+    }
+  }
 }
