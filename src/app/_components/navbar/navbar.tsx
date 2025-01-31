@@ -11,8 +11,8 @@ import { useEffect } from "react";
 import {
   fetchAllProductList,
   filteredProducts,
-  searcProductItem,
   selectorAllProductList,
+  setSearchText,
 } from "@/redux/slice/allProductSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { FiSearch } from "react-icons/fi";
@@ -20,11 +20,13 @@ import { FiSearch } from "react-icons/fi";
 const NavbarComponent = () => {
   // hooks
   const dispatch = useDispatch();
-  const { products, searchProduct } = useSelector(selectorAllProductList);
+  const { products, searchText } = useSelector(
+    selectorAllProductList
+  );
 
   const filterSerachData = () => {
-    const searchItems = products.filter(({ title }) => {
-      return title.toLowerCase().includes(searchProduct.toLowerCase());
+    const searchItems = products.filter(({ title }:{title:string}) => {
+      return title.toLowerCase().includes(searchText.toLowerCase());
     });
     dispatch(filteredProducts(searchItems));
   };
@@ -66,8 +68,13 @@ const NavbarComponent = () => {
                 className="form-control mb-2 mb-md-0 d-block"
                 placeholder="Search..."
                 onChange={(e) => {
-                  dispatch(searcProductItem(e.target.value));
-                  filterSerachData();
+                  if (e.target.value !== "") {
+                    dispatch(setSearchText(e.target.value));
+                    filterSerachData();
+                  }
+                  else{
+                    dispatch(filteredProducts(products));
+                  }
                 }}
               />
             </div>

@@ -24,7 +24,7 @@ const productSlice = createSlice({
     loading: false,
     error: '',
     isSubmitBtnIsDisbaled: false,
-    searchProduct: '',
+    searchText: '',
     filterKeys: {
       category: "",
       minPrice: "",
@@ -58,8 +58,8 @@ const productSlice = createSlice({
     updateFilterKeys: (state, action) => {
       state.filterKeys = { ...state.filterKeys, ...action.payload };
     },
-    searcProductItem: (state, action)=>{
-      state.searchProduct = action.payload;
+    setSearchText: (state, action)=>{
+      state.searchText = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -84,7 +84,7 @@ export const {
   clearFilter,
   updateBtnDisabled,
   updateFilterKeys,
-  searcProductItem,
+  setSearchText,
 } = productSlice.actions;
 
 export const selectorAllProductList = (arg) => arg.productSliceReducer;

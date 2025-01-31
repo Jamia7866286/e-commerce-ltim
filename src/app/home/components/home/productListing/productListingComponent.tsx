@@ -56,8 +56,10 @@ export const ProductListingComponent = () => {
   };
 
   useEffect(() => {
-    !loading && error && setAlertShow(true);
-  }, []);
+    if(error){
+      setAlertShow(true);
+    }
+  }, [error, loading]);
 
   return (
     <div className="container">
