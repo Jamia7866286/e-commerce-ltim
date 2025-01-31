@@ -20,21 +20,27 @@ import { FiSearch } from "react-icons/fi";
 const NavbarComponent = () => {
   // hooks
   const dispatch = useDispatch();
-  const { products, searchText } = useSelector(
-    selectorAllProductList
-  );
+  const { products, searchText } = useSelector(selectorAllProductList);
 
   const filterSerachData = () => {
-    const searchItems = products.filter(({ title }:{title:string}) => {
-      return title.toLowerCase().includes(searchText.toLowerCase());
-    });
-    dispatch(filteredProducts(searchItems));
+    if (searchText.length) {
+      const searchItems = products.filter(({ title }: { title: string }) => {
+        return title.toLowerCase().includes(searchText.toLowerCase());
+      });
+      dispatch(filteredProducts(searchItems));
+    } else {
+      dispatch(filteredProducts(products));
+    }
   };
 
   // Use Effect
   useEffect(() => {
     dispatch(fetchAllProductList());
   }, [dispatch]);
+
+  useEffect(() => {
+    filterSerachData();
+  }, [searchText]);
 
   return (
     <Navbar
@@ -60,7 +66,7 @@ const NavbarComponent = () => {
               <Link href="/cart">Cart (0)</Link>
             </div>
             <div className={styles.searchBox}>
-              <FiSearch onClick={filterSerachData} />
+              <FiSearch onClick={filterSerachData} data-testid="searchBtn" />
               <input
                 type="text"
                 id="title"
@@ -68,13 +74,7 @@ const NavbarComponent = () => {
                 className="form-control mb-2 mb-md-0 d-block"
                 placeholder="Search..."
                 onChange={(e) => {
-                  if (e.target.value !== "") {
-                    dispatch(setSearchText(e.target.value));
-                    filterSerachData();
-                  }
-                  else{
-                    dispatch(filteredProducts(products));
-                  }
+                  dispatch(setSearchText(e.target.value));
                 }}
               />
             </div>

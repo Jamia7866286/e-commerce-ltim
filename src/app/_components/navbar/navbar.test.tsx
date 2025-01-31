@@ -37,9 +37,10 @@ describe("********* Load NavbarComponent & Fetch API Call *********", () => {
     expect(productCard.length).toBe(20);
   });
 
-  it("should load product list items, after enter the product title filter into the search box", async () => {
+  it("should load product list items, globally after enter the product title filter into the search box", async () => {
     render(
       <Provider store={store}>
+        <NavbarComponent />
         <ProductListingComponent />
       </Provider>
     );
@@ -48,8 +49,8 @@ describe("********* Load NavbarComponent & Fetch API Call *********", () => {
     await userEvent.type(searchInputElement, "Mens Cotton Jacket");
     expect(screen.getByText("Mens Cotton Jacket")).toBeInTheDocument();
 
-    const filterButtonElement = screen.getByRole("button", { name: "Filter" });
-    await userEvent.click(filterButtonElement);
+    // const searchButton = screen.getByTestId("searchBtn");
+    // await userEvent.click(searchButton);
 
     const productCardsAfterSearch = await screen.findAllByTestId(
       "product-card"
@@ -57,17 +58,19 @@ describe("********* Load NavbarComponent & Fetch API Call *********", () => {
     expect(productCardsAfterSearch.length).toBe(1);
   });
 
-  it("should load product listitems, after clear the product title filter from search box", async () => {
+  it("should load product listitems, globally after clear the product title filter from search box", async () => {
     render(
       <Provider store={store}>
+        <NavbarComponent />
         <ProductListingComponent />
       </Provider>
     );
+
     const searchInputElement = screen.getByPlaceholderText("Search...");
     await userEvent.clear(searchInputElement);
 
-    const filterButtonElement = screen.getByRole("button", { name: "Filter" });
-    await userEvent.click(filterButtonElement);
+    // const searchButton = screen.getByTestId("searchBtn");
+    // await userEvent.click(searchButton);
 
     const productCardsAfterClearSearch = await screen.findAllByTestId(
       "product-card"
@@ -114,28 +117,27 @@ describe("********* Load NavbarComponent & Fetch API Call *********", () => {
 
     const filterButtonElement = screen.getByRole("button", { name: "Filter" });
     await userEvent.click(filterButtonElement);
-    
+
     const clearFilterCategory = await screen.findAllByTestId("product-card");
     expect(clearFilterCategory).toHaveLength(20);
   });
 
-
   // input box and coose category filter apply
-  it("should load product list items, after enter the product title into search box and choose category filter", async() => {
+  it("should load product list items, after choose category & min-price filter", async() => {
     render(
       <Provider store={store}>
         <ProductListingComponent />
       </Provider>
     );
 
-    const inputSearchFilter = screen.getByPlaceholderText('Search...');
-    await userEvent.type(inputSearchFilter, "Mens Cotton Jacket");
-
     const selectElement = screen.getByTestId("category");
     await userEvent.selectOptions(selectElement, 'jewelery');
 
     const selectOptionElement = screen.getByRole('option', {name: 'Jewelery'}) as HTMLOptionElement;
     expect(selectOptionElement.selected).toBe(true);
+
+    const minPriceFilter = screen.getByRole('spinbutton', {  name: /min price/i});
+    await userEvent.type(minPriceFilter, '800');
 
     const filterButtonElement = screen.getByRole('button', {name: 'Filter'});
     await userEvent.click(filterButtonElement);
