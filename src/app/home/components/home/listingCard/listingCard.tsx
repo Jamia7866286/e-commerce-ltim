@@ -7,6 +7,10 @@ import Link from "next/link";
 const ListingCard = (product) => {
   const { title, price, rating, image, description, id } = product || {};
 
+  const addToCart = (id:number)=>{
+    console.log('add to cart', id);
+  }
+
   return (
     <div className="col-md-4 mb-4" data-testid="product-card">
       <div className={`card ${styles.card}`}>
@@ -28,7 +32,6 @@ const ListingCard = (product) => {
             {Array.from({ length: 5 }, (_, i) => {
               const fullStar = i + 1;
               const halfStar = i + 0.1;
-              // suppose: rating?.rate=2.5
               return (
                 <span key={i} title={rating?.rate}>
                   {rating?.rate >= fullStar ? (
@@ -41,10 +44,9 @@ const ListingCard = (product) => {
                 </span>
               );
             })}
-            {/* <small className="text-muted">({rating?.rate})</small> */}
           </div>
           <div className="d-flex" style={{ gap: "8px" }}>
-            <button className="btn btn-outline-primary btn-sm">
+            <button className="btn btn-outline-primary btn-sm" onClick={()=>addToCart(id)}>
               ADD TO CART
             </button>
             <Link href={`product/${id}`}>

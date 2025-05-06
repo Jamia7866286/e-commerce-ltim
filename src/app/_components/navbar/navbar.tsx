@@ -63,6 +63,7 @@ const NavbarComponent = () => {
             <div className={styles.childTabs}>
               <Link href="/">Home</Link>
               <Link href="/about">About</Link>
+              <Link href="/add-product">Add Product</Link>
               <Link href="/cart">Cart (0)</Link>
             </div>
             <div className={styles.searchBox}>

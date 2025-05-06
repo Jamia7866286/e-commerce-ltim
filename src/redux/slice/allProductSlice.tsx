@@ -1,15 +1,15 @@
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchAllProductList = createAsyncThunk(
   "allProduct/fetchAllProduct",
   async () => {
     try {
-      const res = await fetch('https://fakestoreapi.com/products');
+      const res = await fetch("https://fakestoreapi.com/products");
       const result = await res.json();
       return result;
     } catch (err) {
-      console.log("Api Error!",err);
-      throw {message: "something went wrong"};
+      console.log("Api Error!", err);
+      throw { message: "something went wrong" };
     }
   }
 );
@@ -22,9 +22,9 @@ const productSlice = createSlice({
     products: [],
     filteredProductsData: [],
     loading: false,
-    error: '',
+    error: "",
     isSubmitBtnIsDisbaled: false,
-    searchText: '',
+    searchText: "",
     filterKeys: {
       category: "",
       minPrice: "",
@@ -46,19 +46,19 @@ const productSlice = createSlice({
         minRating: "0",
       };
     },
-    updateBtnDisabled: (state, action) => {
-      // console.log("state.filterKeys", {...state.filterKeys});
-      if (state.filterKeys[action.payload] !== "") {
-        state.isSubmitBtnIsDisbaled = false;
-      } else {
-        state.isSubmitBtnIsDisbaled = true;
-      }
-      // current(state.filterKeys[action.payload]);
-    },
+    // updateBtnDisabled: (state, action) => {
+    //   // console.log("state.filterKeys", {...state.filterKeys});
+    //   if (state.filterKeys[action.payload] !== "") {
+    //     state.isSubmitBtnIsDisbaled = false;
+    //   } else {
+    //     state.isSubmitBtnIsDisbaled = true;
+    //   }
+    //   // current(state.filterKeys[action.payload]);
+    // },
     updateFilterKeys: (state, action) => {
       state.filterKeys = { ...state.filterKeys, ...action.payload };
     },
-    setSearchText: (state, action)=>{
+    setSearchText: (state, action) => {
       state.searchText = action.payload;
     },
   },
@@ -82,7 +82,7 @@ const productSlice = createSlice({
 export const {
   filteredProducts,
   clearFilter,
-  updateBtnDisabled,
+  // updateBtnDisabled,
   updateFilterKeys,
   setSearchText,
 } = productSlice.actions;

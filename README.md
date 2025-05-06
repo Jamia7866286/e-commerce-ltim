@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+<!-- API link https://fakestoreapi.com/docs#tag/Products/operation/addProduct -->
+
 First, run the development server:
 
 ```bash
