@@ -10,6 +10,7 @@ import {
 import Alert from "react-bootstrap/Alert";
 import styles from "./productListing.module.scss";
 import { useDispatch, useSelector } from "react-redux";
+import { Product } from "@/types/product";
 
 export const ProductListingComponent = () => {
   // state variables
@@ -34,12 +35,12 @@ export const ProductListingComponent = () => {
     }
   };
 
-  const onMySubmit = (e) => {
+  const onMySubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // console.log("filterKeys :", filterKeys);
 
     if (category || minPrice || maxPrice || minRating !== "0") {
-      const filterResult = products.filter((filterItem) => {
+      const filterResult = products.filter((filterItem:Product) => {
         const categoryText = filterItem.category.toLowerCase();
         const ratingText = filterItem.rating.rate.toString();
 
