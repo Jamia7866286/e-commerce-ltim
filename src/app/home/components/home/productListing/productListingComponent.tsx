@@ -25,13 +25,13 @@ export const ProductListingComponent = () => {
   const { category, minPrice, maxPrice, minRating } = filterKeys;
 
   // functions
-  const priceRange = (filterItem: any) => {
+  const priceRange = (filterItem: Product) => {
     if (minPrice && maxPrice) {
-      return filterItem.price >= minPrice && filterItem.price <= maxPrice;
+      return filterItem.price >= +minPrice && filterItem.price <= +maxPrice;
     } else if (minPrice) {
-      return filterItem.price >= minPrice;
+      return filterItem.price >= +minPrice;
     } else if (maxPrice) {
-      return filterItem.price <= maxPrice;
+      return filterItem.price <= +maxPrice;
     }
   };
 
@@ -71,8 +71,8 @@ export const ProductListingComponent = () => {
       </div>
 
       {/* Filter component */}
-      <form>
-        <SearchProduct onMySubmit={onMySubmit} />
+      <form onSubmit={onMySubmit}>
+        <SearchProduct />
       </form>
 
       <div className="row" id="product-list">
@@ -90,7 +90,7 @@ export const ProductListingComponent = () => {
             </Alert>
           )
         ) : filteredProductsData?.length > 0 ? (
-          filteredProductsData?.map((product) => (
+          filteredProductsData?.map((product:Product) => (
             <ListingCard key={product.id} {...product} />
           ))
         ) : (

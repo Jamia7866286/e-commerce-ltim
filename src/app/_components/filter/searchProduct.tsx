@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./searchProduct.module.scss";
 import {
   clearFilter,
@@ -15,7 +14,7 @@ export interface OtherProps {
   minRating?: string;
 }
 
-const SearchProduct = ({ onMySubmit }) => {
+const SearchProduct = () => {
   const { isSubmitBtnIsDisbaled, filterKeys } = useSelector(selectorAllProductList);
 
   const dispatch = useDispatch();
@@ -31,7 +30,6 @@ const SearchProduct = ({ onMySubmit }) => {
           data-testid="category"
           className="form-select mb-2 mb-md-0 d-block"
           onChange={(e) => {
-            //  dispatch(updateBtnDisabled(e.target.name))
             dispatch(
               updateFilterKeys({ category: e.target.value.toLowerCase() })
             );
@@ -42,8 +40,8 @@ const SearchProduct = ({ onMySubmit }) => {
           <option value="">All</option>
           <option value="electronics">Electronics</option>
           <option value="jewelery">Jewelery</option>
-          <option value="men's clothing">Men's clothing</option>
-          <option value="women's clothing">Women's clothing</option>
+          <option value="men's clothing">Men&apos;s clothing</option>
+          <option value="women's clothing">Women&apos;s clothing</option>
         </select>
       </div>
       <div className="col-12 col-md-2">
@@ -57,7 +55,6 @@ const SearchProduct = ({ onMySubmit }) => {
           className="form-control mb-2 mb-md-0 d-block"
           name="minPrice"
           onChange={(e) => {
-            // dispatch(updateBtnDisabled(e.target.name))
             dispatch(
               updateFilterKeys({ minPrice: e.target.value.toLowerCase() })
             );
@@ -92,7 +89,6 @@ const SearchProduct = ({ onMySubmit }) => {
           id="minRating"
           className="form-select"
           onChange={(e) => {
-            // dispatch(updateBtnDisabled(e.target.name))
             dispatch(
               updateFilterKeys({ minRating: e.target.value.toLowerCase() })
             );
@@ -115,7 +111,6 @@ const SearchProduct = ({ onMySubmit }) => {
             type="submit"
             className="w-50 btn btn-primary"
             disabled={isSubmitBtnIsDisbaled}
-            onClick={onMySubmit}
           >
             Filter
           </button>
@@ -125,7 +120,6 @@ const SearchProduct = ({ onMySubmit }) => {
               dispatch(clearFilter());
             }}
             className="w-50 btn btn-danger"
-            // disabled={btnIsDisbaled}
           >
             Clear
           </button>

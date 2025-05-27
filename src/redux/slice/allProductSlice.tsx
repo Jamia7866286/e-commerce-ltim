@@ -74,7 +74,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchAllProductList.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || "Api error!";
+        state.error = action.error.message || "Api error!";
       });
   },
 });
@@ -87,6 +87,9 @@ export const {
   setSearchText,
 } = productSlice.actions;
 
-export const selectorAllProductList = (arg) => arg.productSliceReducer;
+// Define RootState type according to your store structure
+import { RootState } from "../store"; // Adjust the import path as needed
+
+export const selectorAllProductList = (state: RootState) => state.productSliceReducer;
 
 export default productSlice.reducer;

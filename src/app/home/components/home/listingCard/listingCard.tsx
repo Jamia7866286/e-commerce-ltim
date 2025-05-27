@@ -1,11 +1,24 @@
-import React from "react";
+import React, { FC } from "react";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import styles from "./listingCard.module.scss";
 import { lessMoreString } from "@/app/utils/commonData";
 import Link from "next/link";
+import Image from "next/image";
 
-const ListingCard = (product) => {
-  const { title, price, rating, image, description, id } = product || {};
+interface ProductProps {
+  id: number;
+  title: string;
+  price: number;
+  rating?: {
+    rate: number;
+    count: number;
+  };
+  image: string;
+  description: string;
+}
+
+const ListingCard:FC<ProductProps> = (product) => {
+  const { id, title, price, rating, image, description } = product;
 
   const addToCart = (id:number)=>{
     console.log('add to cart', id);
@@ -14,7 +27,7 @@ const ListingCard = (product) => {
   return (
     <div className="col-md-4 mb-4" data-testid="product-card">
       <div className={`card ${styles.card}`}>
-        <img src={image} alt="product image" />
+        <Image src={image} alt="product image" width={300} height={300} className="card-img-top" />
         <div className="card-body">
           <h6 className={`card-title ${styles.titleHeading}`}>{title}</h6>
           <p className={`card-text ${styles.descriptionText}`}>
@@ -33,11 +46,11 @@ const ListingCard = (product) => {
               const fullStar = i + 1;
               const halfStar = i + 0.1;
               return (
-                <span key={i} title={rating?.rate}>
-                  {rating?.rate >= fullStar ? (
+                <span key={i} title={rating?.rate?.toString()}>
+                  {(rating?.rate ?? 0) >= fullStar ? (
                     <FaStar key={i} className="text-danger" />
                   ) : (
-                    rating?.rate >= halfStar && (
+                    (rating?.rate ?? 0) >= halfStar && (
                       <FaStarHalfAlt className="text-danger" />
                     )
                   )}

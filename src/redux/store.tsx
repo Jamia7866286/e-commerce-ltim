@@ -7,7 +7,10 @@ const store = configureStore({
         productSliceReducer: productSlice,
         addProductSliceReducer: addProductSlice,
     },
-    middleware: (getDefaultMiddleware) => [...getDefaultMiddleware()],
+    // middleware: (getDefaultMiddleware) => [...getDefaultMiddleware()],
 })
+
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
 
 export default store

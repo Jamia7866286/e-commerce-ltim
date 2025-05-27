@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    domains: ['banner2.cleanpng.com'],
+    domains: ["fakestoreapi.com",'banner2.cleanpng.com',"images.remotePatterns", "images.unsplash.com", "cdn.pixabay.com", "cdn.shopify.com", "cdn.discordapp.com", "i.imgur.com", "media.discordapp.net"],
   },
 };
 

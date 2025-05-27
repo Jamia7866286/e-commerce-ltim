@@ -16,10 +16,11 @@ import {
 } from "@/redux/slice/allProductSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { FiSearch } from "react-icons/fi";
+import { AppDispatch } from "@/redux/store";
 
 const NavbarComponent = () => {
   // hooks
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { products, searchText } = useSelector(selectorAllProductList);
 
   const filterSerachData = () => {

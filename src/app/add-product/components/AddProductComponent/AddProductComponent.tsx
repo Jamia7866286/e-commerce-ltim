@@ -6,9 +6,10 @@ import { Button, Form } from "react-bootstrap";
 import styles from "./AddProductComponent.module.scss";
 import { addProductItemAsyncThunk } from "@/redux/slice/addProductSlice";
 import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
 
 const AddProductComponent = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const { values, handleChange, handleSubmit } = useFormik({
     initialValues: {
@@ -83,8 +84,8 @@ const AddProductComponent = () => {
                   <option value="">All</option>
                   <option value="electronics">Electronics</option>
                   <option value="jewelery">Jewelery</option>
-                  <option value="men's clothing">Men's clothing</option>
-                  <option value="women's clothing">Women's clothing</option>
+                  <option value="men's clothing">Men&apos;s clothing</option>
+                  <option value="women's clothing">Women&apos;s clothing</option>
                 </select>
               </Form.Group>
 

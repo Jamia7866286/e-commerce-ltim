@@ -6,7 +6,7 @@ export const CATEGORY = {
     womenClothing: "Women's clothing"
 }
 
-export const lessMoreString = (str, charCount)=>{
+export const lessMoreString = (str:string, charCount:number)=>{
     if(str.length > charCount){
         return str.slice(0,charCount) + '...'
     }
